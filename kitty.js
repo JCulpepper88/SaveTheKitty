@@ -3,16 +3,16 @@ var monsterPoint = [];
 var kittyPoint = [];
 var weaponPoint = [];
 
-var unarmedUserURL = 'user.png';
-var armedUserURL = 'armed.png';
+var unarmedUserURL = 'images/user.png';
+var armedUserURL = 'images/armed.png';
 var userURL = unarmedUserURL;
-var monsterURL = 'monster.png';
-var kittyURL = 'cat.png';
-var weaponURL = 'sword.png';
-var victoryURL = 'victory.png';
-var catDiesURL = 'catdies.png';
-var userDiesURL = 'userdies.png';
-var holeURL = 'hole.png';
+var monsterURL = 'images/monster.png';
+var kittyURL = 'images/cat.png';
+var weaponURL = 'images/sword.png';
+var victoryURL = 'images/victory.png';
+var catDiesURL = 'images/catdies.png';
+var userDiesURL = 'images/userdies.png';
+var holeURL = 'images/hole.png';
 var defaultColor = '#FFFFFF';
 var wallColor = '#000000';
 
