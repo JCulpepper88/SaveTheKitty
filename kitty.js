@@ -41,7 +41,7 @@ function randomMove() {
 function load() { // we need to make sure two things don't load on the same point
   initialAlert();
 	
-	var userCoord = randomCoord();
+  var userCoord = randomCoord();
   userPoint[1] = parseInt(userCoord[1]);
   userPoint[0] = parseInt(userCoord[0]);
 
@@ -65,30 +65,30 @@ function load() { // we need to make sure two things don't load on the same poin
 
 function reload() {
   var userCoord = userPoint[0].toString() + userPoint[1].toString();
-	var evilCoord = evilPoint[0].toString() + evilPoint[1].toString();
-	var kittyCoord = kittyPoint[0].toString() + kittyPoint[1].toString();
-	var weaponCoord = weaponPoint[0].toString() + weaponPoint[1].toString();
+  var evilCoord = evilPoint[0].toString() + evilPoint[1].toString();
+  var kittyCoord = kittyPoint[0].toString() + kittyPoint[1].toString();
+  var weaponCoord = weaponPoint[0].toString() + weaponPoint[1].toString();
   document.getElementById(userCoord).innerHTML = '';
   document.getElementById(evilCoord).innerHTML = '';
   document.getElementById(kittyCoord).innerHTML = '';
-	userURL = unarmedUserURL;
-	userArmed = false;
+  userURL = unarmedUserURL;
+  userArmed = false;
   if (weaponPoint[0] <= gridMax)
-	  document.getElementById(weaponCoord).innerHTML = '';
-	gameActive = true;
-	load();
+    document.getElementById(weaponCoord).innerHTML = '';
+  gameActive = true;
+  load();
 }
 
 function updateUserCoord(x,y) {
   var newCoord = y.toString() + x.toString();
   var oldCoord = userPoint[0].toString() + userPoint[1].toString();
-	var evilCoord = evilPoint[0].toString() + evilPoint[1].toString();
+  var evilCoord = evilPoint[0].toString() + evilPoint[1].toString();
   if (oldCoord != evilCoord) {
-	  document.getElementById(oldCoord).innerHTML = '';
-		document.getElementById(newCoord).innerHTML = '<img src=\"' + userURL + '\">';
-	}
-	else
-	  userMonsterEncounter();  
+    document.getElementById(oldCoord).innerHTML = '';
+    document.getElementById(newCoord).innerHTML = '<img src=\"' + userURL + '\">';
+  }
+  else // it would be nice to limit this to cases where the user and monster switch places
+    userMonsterEncounter();  
   userPoint[1] = x;
   userPoint[0] = y;
 }
@@ -147,9 +147,9 @@ function move(dir) {
         y += 1;
       break;
   }
-	// need to prevent user from moving onto kitty
-	
-  updateUserCoord(x,y);
+  // prevent user from moving onto kitty	
+  if (x != kittyPoint[1] || y != kittyPoint[0])
+    updateUserCoord(x,y);
   comparePoints();
 }
 
@@ -208,8 +208,8 @@ function reloadAlert() {
 }
 
 function initialAlert() {
-document.getElementById('message').innerHTML = '<p>Get the weapon and slay the monster before it gets to the kitten!</p>' +
-		'<p>You are blue. Use arrow keys to move.</p>';
+  document.getElementById('message').innerHTML = '<p>Get the weapon and slay the monster before it gets to the kitten!</p>' +
+    '<p>You are blue. Use arrow keys to move.</p>';
 }
 
 function keyCheck(e) {
@@ -224,7 +224,7 @@ function keyCheck(e) {
     move('right');
   else if (evt == 40) // Down Arrow
     move('down');
-	else if (evt == 32) // Space
+  else if (evt == 32) // Space
     reload();
 }
 
