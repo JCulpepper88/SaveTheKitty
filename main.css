@@ -1,0 +1,41 @@
+BODY {
+  text-align: center;
+  font-family: arial;
+  background-color: #AAAAAA;
+}
+
+IMG {
+  width: 59px;
+}
+
+.grid {
+  border: 2px solid black;
+  border-collapse: collapse;
+  margin: auto;
+  background-color: white;
+}
+
+.grid TD {
+  border: 0px solid black;
+  height: 60px;
+  width: 60px;
+  margin: 0px;
+  padding: 0px;
+  display: inline-block;
+}
+
+.alert {
+	background-color: #808080;
+	display: inline-block;
+	padding: 10px;
+	margin: 10px;
+	height: 75px;
+	width: 50%;
+}
+
+.message {
+	display: block;
+	color: white;
+	font-weight: bold;
+	font-size: 16px;
+}

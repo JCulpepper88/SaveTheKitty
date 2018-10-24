@@ -1,75 +1,90 @@
 var gameActive = true;
 
 var userPoint = [];
-var evilPoint = [];
+var monsterPoint = [];
 var kittyPoint = [];
 var weaponPoint = [];
 
 var unarmedUserURL = 'user.png';
 var armedUserURL = 'armed.png';
 var userURL = unarmedUserURL;
-var evilURL = 'monster.png';
+var monsterURL = 'monster.png';
 var kittyURL = 'cat.png';
 var weaponURL = 'sword.png';
 var victoryURL = 'victory.png';
-var catdiesURL = 'catdies.png';
-var userdiesURL = 'userdies.png';
+var catDiesURL = 'catdies.png';
+var userDiesURL = 'userdies.png';
 
 var gridMax = 7;
 var gridMin = 0;
 var userArmed = false;
 
 function randomCoord() {
-  var x = Math.floor(Math.random()*8);
-  var y = Math.floor(Math.random()*8);
+  var x = Math.floor(Math.random()*(gridMax + 1));
+  var y = Math.floor(Math.random()*(gridMax + 1));
   return y.toString() + x.toString();
 }
 
 function randomMove() {
-  var xchange = Math.floor(Math.random()*3);
-  xchange = xchange == 2 ? -1 : xchange;
-  var ychange;
-  if (xchange != 0)
-    ychange = 0;
+  var xChange = Math.floor(Math.random()*3);
+  xChange = xChange == 2 ? -1 : xChange;
+  var yChange;
+  if (xChange != 0)
+    yChange = 0;
   else {
-    ychange = Math.floor(Math.random()*2);
-    ychange = ychange == 0 ? -1 : 1;
+    yChange = Math.floor(Math.random()*2);
+    yChange = yChange == 0 ? -1 : 1;
   }
-  return [xchange, ychange];
+  return [xChange, yChange];
 }
 
-function load() { // we need to make sure two things don't load on the same point
+function load() {
   initialAlert();
+  var noOverlaps = true;
+
+  do {
+    noOverlaps = true;
+
+    var userCoord = randomCoord();
+    userPoint[1] = parseInt(userCoord[1]);
+    userPoint[0] = parseInt(userCoord[0]);
+
+    var monsterCoord = randomCoord();
+    monsterPoint[1] = parseInt(monsterCoord[1]);
+    monsterPoint[0] = parseInt(monsterCoord[0]);
+
+    if (userCoord == monsterCoord)
+      noOverlaps = false;
+
+    var kittyCoord = randomCoord();
+    kittyPoint[1] = parseInt(kittyCoord[1]);
+    kittyPoint[0] = parseInt(kittyCoord[0]);
+
+    if (kittyCoord == userCoord || kittyCoord == monsterCoord)
+      noOverlaps = false;
+
+    var weaponCoord = randomCoord();
+    weaponPoint[1] = parseInt(weaponCoord[1]);
+    weaponPoint[0] = parseInt(weaponCoord[0]);
+
+    if (weaponCoord == userCoord || weaponCoord == monsterCoord || weaponCoord == kittyCoord)
+      noOverlaps = false;
 	
-  var userCoord = randomCoord();
-  userPoint[1] = parseInt(userCoord[1]);
-  userPoint[0] = parseInt(userCoord[0]);
-
-  var evilCoord = randomCoord();
-  evilPoint[1] = parseInt(evilCoord[1]);
-  evilPoint[0] = parseInt(evilCoord[0]);
-
-  var kittyCoord = randomCoord();
-  kittyPoint[1] = parseInt(kittyCoord[1]);
-  kittyPoint[0] = parseInt(kittyCoord[0]);
-
-  var weaponCoord = randomCoord();
-  weaponPoint[1] = parseInt(weaponCoord[1]);
-  weaponPoint[0] = parseInt(weaponCoord[0]);
+  } while (!noOverlaps)
 
   document.getElementById(userCoord).innerHTML = '<img src=\"' + userURL + '\">';
-  document.getElementById(evilCoord).innerHTML = '<img src=\"' + evilURL + '\">';
+  document.getElementById(monsterCoord).innerHTML = '<img src=\"' + monsterURL + '\">';
   document.getElementById(kittyCoord).innerHTML = '<img src=\"' + kittyURL + '\">';
   document.getElementById(weaponCoord).innerHTML = '<img src=\"' + weaponURL + '\">';
 }
 
 function reload() {
   var userCoord = userPoint[0].toString() + userPoint[1].toString();
-  var evilCoord = evilPoint[0].toString() + evilPoint[1].toString();
+  var monsterCoord = monsterPoint[0].toString() + monsterPoint[1].toString();
   var kittyCoord = kittyPoint[0].toString() + kittyPoint[1].toString();
   var weaponCoord = weaponPoint[0].toString() + weaponPoint[1].toString();
   document.getElementById(userCoord).innerHTML = '';
-  document.getElementById(evilCoord).innerHTML = '';
+  document.getElementById(monsterCoord).innerHTML = '';
   document.getElementById(kittyCoord).innerHTML = '';
   userURL = unarmedUserURL;
   userArmed = false;
@@ -82,8 +97,8 @@ function reload() {
 function updateUserCoord(x,y) {
   var newCoord = y.toString() + x.toString();
   var oldCoord = userPoint[0].toString() + userPoint[1].toString();
-  var evilCoord = evilPoint[0].toString() + evilPoint[1].toString();
-  if (oldCoord != evilCoord) {
+  var monsterCoord = monsterPoint[0].toString() + monsterPoint[1].toString();
+  if (oldCoord != monsterCoord) {
     document.getElementById(oldCoord).innerHTML = '';
     document.getElementById(newCoord).innerHTML = '<img src=\"' + userURL + '\">';
   }
@@ -93,38 +108,38 @@ function updateUserCoord(x,y) {
   userPoint[0] = y;
 }
 
-function updateEvilCoord() {
+function updateMonsterCoord() {
   var newx;
   var newy;
 
   do {
     var valid = true;
     var change = randomMove();
-    var x = parseInt(evilPoint[1]);
-    var y = parseInt(evilPoint[0]);
+    var x = parseInt(monsterPoint[1]);
+    var y = parseInt(monsterPoint[0]);
     newx = x + change[0];
     newy = y + change[1];
-		// monster cannot move into the weapon
-		if (newy == weaponPoint[0] && newx == weaponPoint[1])
-		  valid = false;
-		// monster cannot move off the grid
+	// monster cannot move into the weapon
+	if (newy == weaponPoint[0] && newx == weaponPoint[1])
+	  valid = false;
+	// monster cannot move off the grid
     if (newx < gridMin || newx > gridMax || newy < gridMin || newy > gridMax)
       valid = false;
   } while (!valid);
 
   var newCoord = newy.toString() + newx.toString();
-  var oldCoord = evilPoint[0].toString() + evilPoint[1].toString();
+  var oldCoord = monsterPoint[0].toString() + monsterPoint[1].toString();
   document.getElementById(oldCoord).innerHTML = '';
-  document.getElementById(newCoord).innerHTML = '<img src=\"' + evilURL + '\">';
-  evilPoint[1] = newx;
-  evilPoint[0] = newy;
+  document.getElementById(newCoord).innerHTML = '<img src=\"' + monsterURL + '\">';
+  monsterPoint[1] = newx;
+  monsterPoint[0] = newy;
 }
 
 function move(dir) {
   if (!gameActive)
 	  return;
 		
-  updateEvilCoord();
+  updateMonsterCoord();
 	
   var x = parseInt(userPoint[1]);
   var y = parseInt(userPoint[0]);
@@ -157,11 +172,11 @@ function userMonsterEncounter() {
   var userCoord = userPoint[0].toString() + userPoint[1].toString();
   if (userArmed) {
 	  alert('You killed the monster! You win!');
-		document.getElementById(userCoord).innerHTML = '<img src=\"' + victoryURL + '\">';
+	  document.getElementById(userCoord).innerHTML = '<img src=\"' + victoryURL + '\">';
 	}
 	else {
 	  alert('The monster killed you! You lose!');
-		document.getElementById(userCoord).innerHTML = '<img src=\"' + userdiesURL + '\">'; 
+	  document.getElementById(userCoord).innerHTML = '<img src=\"' + userDiesURL + '\">'; 
 	}
 	reloadAlert();
 	gameActive = false;
@@ -174,27 +189,25 @@ function comparePoints() {
   if (userPoint[0] == weaponPoint[0] && userPoint[1] == weaponPoint[1]) {
     userURL = armedUserURL;
     userArmed = true;
-		var userCoord = userPoint[0].toString() + userPoint[1].toString();
-		document.getElementById(userCoord).innerHTML = '<img src=\"' + userURL + '\">';
-		weaponPoint = [gridMax + 1, gridMax + 1];
-		alert('You got the weapon!');
+	var userCoord = userPoint[0].toString() + userPoint[1].toString();
+	document.getElementById(userCoord).innerHTML = '<img src=\"' + userURL + '\">';
+	weaponPoint = [gridMax + 1, gridMax + 1];
+	alert('You got the weapon!');
   }
 
 // Monster + User
 
-  if (userPoint[0] == evilPoint[0] && userPoint[1] == evilPoint[1]) {
-   userMonsterEncounter();
-  }
+  if (userPoint[0] == monsterPoint[0] && userPoint[1] == monsterPoint[1])
+    userMonsterEncounter();
 
 // Monster + Kitty
 
-  if (kittyPoint[0] == evilPoint[0] && kittyPoint[1] == evilPoint[1]) {
-    // monster kills kitten
-		alert('The monster killed the kitty! You lose!');
-		var evilCoord = evilPoint[0].toString() + evilPoint[1].toString();
-		document.getElementById(evilCoord).innerHTML = '<img src=\"' + catdiesURL + '\">';
-		reloadAlert();
-		gameActive = false;
+  if (kittyPoint[0] == monsterPoint[0] && kittyPoint[1] == monsterPoint[1]) {
+	var monsterCoord = monsterPoint[0].toString() + monsterPoint[1].toString();
+	document.getElementById(monsterCoord).innerHTML = '<img src=\"' + catDiesURL + '\">';
+	alert('The monster killed the kitty! You lose!');
+	reloadAlert();
+	gameActive = false;
   }
 
 }
