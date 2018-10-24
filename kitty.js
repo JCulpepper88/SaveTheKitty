@@ -1,5 +1,3 @@
-var gameActive = true;
-
 var userPoint = [];
 var monsterPoint = [];
 var kittyPoint = [];
@@ -18,6 +16,7 @@ var userDiesURL = 'userdies.png';
 var gridMax = 7;
 var gridMin = 0;
 var userArmed = false;
+var gameActive = true;
 
 function randomCoord() {
   var x = Math.floor(Math.random()*(gridMax + 1));
@@ -85,11 +84,11 @@ function reload() {
   var weaponCoord = weaponPoint[0].toString() + weaponPoint[1].toString();
   document.getElementById(userCoord).innerHTML = '';
   document.getElementById(monsterCoord).innerHTML = '';
-  document.getElementById(kittyCoord).innerHTML = '';
-  userURL = unarmedUserURL;
-  userArmed = false;
+  document.getElementById(kittyCoord).innerHTML = '';  
   if (weaponPoint[0] <= gridMax)
     document.getElementById(weaponCoord).innerHTML = '';
+  userURL = unarmedUserURL;
+  userArmed = false;
   gameActive = true;
   load();
 }
@@ -119,12 +118,15 @@ function updateMonsterCoord() {
     var y = parseInt(monsterPoint[0]);
     newx = x + change[0];
     newy = y + change[1];
+	
 	// monster cannot move into the weapon
 	if (newy == weaponPoint[0] && newx == weaponPoint[1])
 	  valid = false;
+  
 	// monster cannot move off the grid
     if (newx < gridMin || newx > gridMax || newy < gridMin || newy > gridMax)
       valid = false;
+  
   } while (!valid);
 
   var newCoord = newy.toString() + newx.toString();
@@ -137,7 +139,7 @@ function updateMonsterCoord() {
 
 function move(dir) {
   if (!gameActive)
-	  return;
+    return;
 		
   updateMonsterCoord();
 	
@@ -174,12 +176,12 @@ function userMonsterEncounter() {
 	  alert('You killed the monster! You win!');
 	  document.getElementById(userCoord).innerHTML = '<img src=\"' + victoryURL + '\">';
 	}
-	else {
-	  alert('The monster killed you! You lose!');
-	  document.getElementById(userCoord).innerHTML = '<img src=\"' + userDiesURL + '\">'; 
-	}
-	reloadAlert();
-	gameActive = false;
+  else {
+    alert('The monster killed you! You lose!');
+    document.getElementById(userCoord).innerHTML = '<img src=\"' + userDiesURL + '\">'; 
+  }
+  reloadAlert();
+  gameActive = false;
 }
 
 function comparePoints() {
