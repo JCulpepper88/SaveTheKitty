@@ -12,10 +12,16 @@ var weaponURL = 'sword.png';
 var victoryURL = 'victory.png';
 var catDiesURL = 'catdies.png';
 var userDiesURL = 'userdies.png';
+var holeURL = 'hole.png';
+var defaultColor = '#FFFFFF';
+var wallColor = '#000000';
 
 var gridMax = 7;
 var gridMin = 0;
 var userArmed = false;
+var currentLevel = 1;
+var maxLevel = 2;
+var autoMove;
 var gameActive = true;
 
 function randomCoord() {
@@ -37,8 +43,7 @@ function randomMove() {
   return [xChange, yChange];
 }
 
-function load() {
-  initialAlert();
+function randomStartPosition() {
   var noOverlaps = true;
 
   do {
@@ -77,19 +82,67 @@ function load() {
   document.getElementById(weaponCoord).innerHTML = '<img src=\"' + weaponURL + '\">';
 }
 
+function presetStartPosition() {
+  var levelMap = levels[currentLevel - 1];
+
+  for (var i = 0; i < levelMap.length; i++) {
+    for (var j = 0; j < levelMap[i].length; j++) {
+      var coord = i.toString() + j.toString();
+      switch (levelMap[i][j]) {
+        case 'u':
+          document.getElementById(coord).style.background = defaultColor;
+          document.getElementById(coord).innerHTML = '<img src=\"' + userURL + '\">';
+          userPoint[0] = i;
+          userPoint[1] = j;
+          break;
+        case 'k':
+          document.getElementById(coord).style.background = defaultColor;
+          document.getElementById(coord).innerHTML = '<img src=\"' + kittyURL + '\">';
+          kittyPoint[0] = i;
+          kittyPoint[1] = j;
+          break;
+        case 'm':
+          document.getElementById(coord).style.background = defaultColor;
+          document.getElementById(coord).innerHTML = '<img src=\"' + monsterURL + '\">';
+          monsterPoint[0] = i;
+          monsterPoint[1] = j;
+          break;
+        case 'w':
+          document.getElementById(coord).style.background = defaultColor;
+          document.getElementById(coord).innerHTML = '<img src=\"' + weaponURL + '\">';
+          weaponPoint[0] = i;
+          weaponPoint[1] = j;
+          break;
+        case '=':
+          document.getElementById(coord).innerHTML = '';
+          document.getElementById(coord).style.background = wallColor;
+          break;
+        case '*':
+          document.getElementById(coord).style.background = defaultColor;
+          document.getElementById(coord).innerHTML = '<img src=\"' + holeURL + '\">';
+          break;
+        default:
+          document.getElementById(coord).style.background = defaultColor;
+          document.getElementById(coord).innerHTML = '';
+          break;
+      }
+    }
+  }
+}
+
+function load() {
+  document.getElementById('level').innerHTML = currentLevel;
+  initialAlert();
+  presetStartPosition();
+  if (currentLevel > 1)
+    autoMove = setInterval(moveMonster, 500);
+}
+
 function reload() {
-  var userCoord = userPoint[0].toString() + userPoint[1].toString();
-  var monsterCoord = monsterPoint[0].toString() + monsterPoint[1].toString();
-  var kittyCoord = kittyPoint[0].toString() + kittyPoint[1].toString();
-  var weaponCoord = weaponPoint[0].toString() + weaponPoint[1].toString();
-  document.getElementById(userCoord).innerHTML = '';
-  document.getElementById(monsterCoord).innerHTML = '';
-  document.getElementById(kittyCoord).innerHTML = '';  
-  if (weaponPoint[0] <= gridMax)
-    document.getElementById(weaponCoord).innerHTML = '';
   userURL = unarmedUserURL;
   userArmed = false;
   gameActive = true;
+  clearInterval(autoMove);
   load();
 }
 
@@ -107,7 +160,7 @@ function updateUserCoord(x,y) {
   userPoint[0] = y;
 }
 
-function updateMonsterCoord() {
+function moveMonster() {
   var newx;
   var newy;
 
@@ -119,11 +172,11 @@ function updateMonsterCoord() {
     newx = x + change[0];
     newy = y + change[1];
 	
-	// monster cannot move into the weapon
-	if (newy == weaponPoint[0] && newx == weaponPoint[1])
-	  valid = false;
+    // monster cannot move into the weapon
+    if (newy == weaponPoint[0] && newx == weaponPoint[1])
+      valid = false;
   
-	// monster cannot move off the grid
+    // monster cannot move off the grid
     if (newx < gridMin || newx > gridMax || newy < gridMin || newy > gridMax)
       valid = false;
   
@@ -135,13 +188,14 @@ function updateMonsterCoord() {
   document.getElementById(newCoord).innerHTML = '<img src=\"' + monsterURL + '\">';
   monsterPoint[1] = newx;
   monsterPoint[0] = newy;
+  comparePoints();
 }
 
-function move(dir) {
+function moveUser(dir) {
   if (!gameActive)
     return;
-		
-  updateMonsterCoord();
+  if (currentLevel == 1)		
+    moveMonster();
 	
   var x = parseInt(userPoint[1]);
   var y = parseInt(userPoint[0]);
@@ -170,31 +224,28 @@ function move(dir) {
   comparePoints();
 }
 
-function userMonsterEncounter() {
-  var userCoord = userPoint[0].toString() + userPoint[1].toString();
-  if (userArmed) {
-	  alert('You killed the monster! You win!');
-	  document.getElementById(userCoord).innerHTML = '<img src=\"' + victoryURL + '\">';
-	}
-  else {
-    alert('The monster killed you! You lose!');
-    document.getElementById(userCoord).innerHTML = '<img src=\"' + userDiesURL + '\">'; 
-  }
-  reloadAlert();
-  gameActive = false;
-}
-
 function comparePoints() {
 
-// User gets the weapon
+// User + Weapon
 
   if (userPoint[0] == weaponPoint[0] && userPoint[1] == weaponPoint[1]) {
     userURL = armedUserURL;
     userArmed = true;
-	var userCoord = userPoint[0].toString() + userPoint[1].toString();
-	document.getElementById(userCoord).innerHTML = '<img src=\"' + userURL + '\">';
-	weaponPoint = [gridMax + 1, gridMax + 1];
-	alert('You got the weapon!');
+    var userCoord = userPoint[0].toString() + userPoint[1].toString();
+    document.getElementById(userCoord).innerHTML = '<img src=\"' + userURL + '\">';
+    weaponPoint = [gridMax + 1, gridMax + 1];
+    alert('You got the weapon!');
+  }
+
+// Monster + Kitty
+
+  if (kittyPoint[0] == monsterPoint[0] && kittyPoint[1] == monsterPoint[1]) {
+    var monsterCoord = monsterPoint[0].toString() + monsterPoint[1].toString();
+    document.getElementById(monsterCoord).innerHTML = '<img src=\"' + catDiesURL + '\">';
+    alert('The monster killed the kitty! You lose!');
+    currentLevel = 1;
+    reloadAlert();
+    gameActive = false;
   }
 
 // Monster + User
@@ -202,16 +253,28 @@ function comparePoints() {
   if (userPoint[0] == monsterPoint[0] && userPoint[1] == monsterPoint[1])
     userMonsterEncounter();
 
-// Monster + Kitty
+}
 
-  if (kittyPoint[0] == monsterPoint[0] && kittyPoint[1] == monsterPoint[1]) {
-	var monsterCoord = monsterPoint[0].toString() + monsterPoint[1].toString();
-	document.getElementById(monsterCoord).innerHTML = '<img src=\"' + catDiesURL + '\">';
-	alert('The monster killed the kitty! You lose!');
-	reloadAlert();
-	gameActive = false;
+function userMonsterEncounter() {
+  if (!gameActive)
+    return;
+  var userCoord = userPoint[0].toString() + userPoint[1].toString();
+  clearInterval(autoMove);
+  if (userArmed) {    
+    alert('You killed the monster! You win!');
+    document.getElementById(userCoord).innerHTML = '<img src=\"' + victoryURL + '\">';
+    currentLevel++;
+    if (currentLevel > maxLevel)
+      currentLevel = 1;
+    nextLevelAlert()
   }
-
+  else {
+    alert('The monster killed you! You lose!');
+    document.getElementById(userCoord).innerHTML = '<img src=\"' + userDiesURL + '\">';
+    currentLevel = 1;
+    reloadAlert();
+  }
+  gameActive = false;
 }
 
 function alert(message) {
@@ -219,26 +282,34 @@ function alert(message) {
 }
 
 function reloadAlert() {
-  document.getElementById('message').innerHTML += '<p>Press Spacebar to reset.</p>';
+  document.getElementById('message').innerHTML += '<p>Press Spacebar to start over.</p>';
+}
+
+function nextLevelAlert() {
+  document.getElementById('message').innerHTML += '<p>Press Spacebar for next level.</p>';
 }
 
 function initialAlert() {
-  document.getElementById('message').innerHTML = '<p>Get the weapon and slay the monster before it gets to the kitten!</p>' +
-    '<p>You are blue. Use arrow keys to move.</p>';
+  var msg = document.getElementById('message');
+  msg.innerHTML = '<p>Get the weapon and slay the monster before it gets to the kitten!</p>';
+  if (currentLevel == 1)
+    msg.innerHTML += '<p>You are blue. Use arrow keys to move.</p>';
+  else
+    msg.innerHTML += '<p>Watch out for holes!</p>';
 }
 
 function keyCheck(e) {
-	
+
   evt = e.keyCode || e.charCode;
   	
   if (evt == 37) // Left Arrow
-    move('left');
+    moveUser('left');
   else if (evt == 38) // Up Arrow
-    move('up');
+    moveUser('up');
   else if (evt == 39) // Right Arrow
-    move('right');
+    moveUser('right');
   else if (evt == 40) // Down Arrow
-    move('down');
+    moveUser('down');
   else if (evt == 32) // Space
     reload();
 }
