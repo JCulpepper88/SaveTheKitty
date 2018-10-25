@@ -210,4 +210,16 @@ const level16 = // by John Culpepper
  '--------',
 ];
 
-const levels = [level1, level2, level3, level4, level15, level5, level16, level6, level7, level8, level11, level12, level13, level9, level10, level14]
+const evil = 
+[
+ '********',
+ '*======*',
+ '*=****=*',
+ '*=*km*=*',
+ '*=*uw*=*',
+ '*=****=*',
+ '*======*',
+ '********',
+];
+
+const levels = [level1, level2, level3, level4, level15, level5, level16, level6, level7, level8, level11, level12, level13, level9, level10, level14, evil];
