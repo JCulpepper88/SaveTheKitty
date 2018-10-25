@@ -138,4 +138,40 @@ const level10 =
  '*---u--*',
 ];
 
-const levels = [level1, level2, level3, level4, level5, level6, level7, level8, level9, level10]
+const level11 = // by John Culpepper
+[
+ 'u--=--k-',
+ '-*---=-=',
+ '--=-*---',
+ '-*--=-=-',
+ '---*==--',
+ '-=-=---=',
+ '--m--=--',
+ '-=-=-=-w',
+];
+
+const level12 = // by John Culpepper
+[
+ '---*--u-',
+ '-k------',
+ '----*---',
+ '--*---*-',
+ '*---*---',
+ '--m*---*',
+ '-*----*-',
+ '-w*--*--',
+];
+
+const level13 = // by John Culpepper
+[
+ 'u-------',
+ '***--*--',
+ '----**--',
+ '---k----',
+ '-**-*--*',
+ '---*m---',
+ '----*-*-',
+ '--*----w',
+];
+
+const levels = [level1, level2, level3, level4, level5, level6, level7, level8, level11, level12, level13, level9, level10]

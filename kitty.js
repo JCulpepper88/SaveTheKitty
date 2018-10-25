@@ -22,6 +22,7 @@ const gridMax = 7;
 const gridMin = 0;
 var userArmed = false;
 var currentLevel = 1;
+var kittensSaved = 0;
 var monsterSpeed = 500; // lower is faster
 const maxLevel = levels.length;
 var autoMove;
@@ -135,6 +136,7 @@ function presetStartPosition() {
 
 function load() {
   document.getElementById('level').innerHTML = currentLevel;
+  document.getElementById('saved').innerHTML = kittensSaved;
   document.getElementById('speed').innerHTML = 500/monsterSpeed;
   initialAlert();
   presetStartPosition();
@@ -282,10 +284,12 @@ function userMonsterEncounter() {
     return;
   const userCoord = userPoint[0].toString() + userPoint[1].toString();
   if (userArmed) {
-	clearInterval(autoMove);
+    clearInterval(autoMove);
     alert('You killed the monster! You win!');
     document.getElementById(userCoord).innerHTML = '<img src=\"' + victoryURL + '\">';
     currentLevel++;
+    kittensSaved++;
+    document.getElementById('saved').innerHTML = kittensSaved;
     if (currentLevel > maxLevel) {
       currentLevel = 1;
       monsterSpeed = monsterSpeed / 2;
@@ -305,6 +309,7 @@ function endGame(message) {
   reloadAlert();
   currentLevel = 1;
   monsterSpeed = 500;
+  kittensSaved = 0;
   gameActive = false;
 }
 
@@ -333,16 +338,27 @@ function keyCheck(e) {
 
   evt = e.keyCode || e.charCode;
   	
-  if (evt == 37) // Left Arrow
+  if (evt == 37) { // Left Arrow
+    event.preventDefault();
     moveUser('left');
-  else if (evt == 38) // Up Arrow
+  }
+  else if (evt == 38) { // Up Arrow
+    event.preventDefault();
     moveUser('up');
-  else if (evt == 39) // Right Arrow
+  }
+  else if (evt == 39) { // Right Arrow
+    event.preventDefault();
     moveUser('right');
-  else if (evt == 40) // Down Arrow
+  }
+  else if (evt == 40) { // Down Arrow
+    event.preventDefault();
     moveUser('down');
-  else if (evt == 32) // Space
-    reload();
+  }
+  else if (evt == 32) { // Space
+    event.preventDefault();
+    if (!gameActive)
+      reload();
+  }
 }
 
 document.addEventListener("keydown", keyCheck, false);
