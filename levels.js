@@ -18,9 +18,8 @@ w weapon
 = wall
 
 Level Design:
-  1-10 Bradley Harris
-  11-19 John Culpepper
-  20 ("evil") Bradley Harris
+  1-10, final "evil" level: Bradley Harris
+  11-20: John Culpepper
 */
 
 const level1 = 
@@ -251,6 +250,22 @@ const level19 =
  '-------*',
 ];
 
+const level20 =
+[
+ '-----*---*--',
+ '--=-*--*----',
+ '-=*---*-*---',
+ '--========-=',
+ '*-*---------',
+ '--=------m*-',
+ '-=------*---',
+ '-=--=-=---*-',
+ '-=*--k------',
+ '-=---=--=--*',
+ '-=-=--------',
+ 'w=u---*-----',
+];
+
 const evil = 
 [
  '********',
@@ -263,9 +278,10 @@ const evil =
  '********',
 ];
 
-const levels = [
+const levels = [ 
 level1, level2, level3, level4, level15, 
 level17, level5, level6, level18, level16,
 level7, level19, level8, level11, level12, 
-level13, level9, level10, level14, evil
+level13, level9, level10, level14, level20,
+evil
 ];
