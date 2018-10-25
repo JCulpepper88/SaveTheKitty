@@ -11,7 +11,7 @@ Each of the levels is an array of characters parsed by the program. A table disp
 
 The monster moves in a random direction every half second.
 
-The user begins with 2 lives. After completing all the levels, you return to level 1, but the monster doubles in speed, and the user gains a life.
+The user begins with 3 lives. After completing all the levels, it resets to level 1, but the monster doubles in speed, and the user gains a life.
 
 ## Issues
 
