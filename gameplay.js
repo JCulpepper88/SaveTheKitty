@@ -11,6 +11,7 @@ function randomMove() {
   return [xChange, yChange];
 }
 
+
 function updateUserCoord(x,y) {
   var newCoord = y.toString() + x.toString();
   var oldCoord = userPoint[0].toString() + userPoint[1].toString();
@@ -25,17 +26,21 @@ function updateUserCoord(x,y) {
   userPoint[0] = y;
 }
 
+
 function isHole(x, y) {
   return levelMap[y][x] == '*';
 }
+
 
 function isWall(x, y) {
   return levelMap[y][x] == '=';
 }
 
+
 function isAlive() {
  return userLives > 0;
 }
+
 
 function moveMonster() {
   var newx;
@@ -74,6 +79,7 @@ function moveMonster() {
   comparePoints();
 }
 
+
 function moveUser(dir) {
   if (!gameActive) // User can only move when game is active
     return;
@@ -106,6 +112,7 @@ function moveUser(dir) {
     updateUserCoord(x,y);
   comparePoints();
 }
+
 
 function comparePoints() {
 
@@ -149,6 +156,7 @@ function comparePoints() {
   }
 }
 
+
 function userMonsterEncounter() {
   if (!gameActive) // this prevents duplicate calls
     return;
@@ -176,6 +184,7 @@ function userMonsterEncounter() {
   gameActive = false;
 }
 
+
 function addLife() {
   userLives++;
   var heartIMG = document.createElement("img");
@@ -187,11 +196,13 @@ function addLife() {
   document.getElementById('lives').appendChild(heart);
 }
 
+
 function loseLife() {
   userLives--;
   const lives = document.getElementById('lives')
   lives.removeChild(lives.childNodes[0]);
 }
+
 
 function endLevel(message) {
   clearInterval(autoMove);
@@ -200,6 +211,7 @@ function endLevel(message) {
   if (userLives < 1)
     gameOverAlert();
 }
+
 
 function keyCheck(e) {
 
@@ -227,5 +239,6 @@ function keyCheck(e) {
       loadLevel();
   }
 }
+
 
 document.addEventListener("keydown", keyCheck, false);
