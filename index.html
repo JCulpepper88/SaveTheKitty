@@ -2,16 +2,18 @@
 
 <link rel="stylesheet" href="main.css" type="text/css">
 <script type="text/javascript" src="levels.js"></script>
-<script type="text/javascript" src="kitty.js" defer></script>
+<script type="text/javascript" src="alerts.js"></script>
+<script type="text/javascript" src="initialize.js"></script>
+<script type="text/javascript" src="gameplay.js"></script>
 
 </head>
 
-<body onload="load();">
+<body onload="newGame();">
 
 <h1>Save the Kitty</h1>
 
 <div id="alert" class="alert">
-	<div id="message" class="message"></div>
+  <div id="message" class="message"></div>
 </div>
 <h4>Level <span id="level"></span> (Speed <span id="speed"></span>)</h4>
 
@@ -97,5 +99,13 @@
  <td id="77"></td>
 </tr>
 </table>
-<h4>Kittens Saved: <span id="saved">0</span></h4>
+
+<div class="stats">
+  <div><b>Kittens Saved: <span id="saved">0</span></b></div>
+  <div class="spacer"></div>
+  <div>
+    <ul id="lives"></ul>
+  </div>
+</div>
+
 </body></html>

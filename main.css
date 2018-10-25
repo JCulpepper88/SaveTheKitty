@@ -39,3 +39,30 @@ IMG {
   font-weight: bold;
   font-size: 16px;
 }
+
+.stats {
+  display: flex;
+  background-color: #FFFFFF;
+  width: 470px;
+  margin: auto;
+  padding: 5px;
+  border-bottom: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+}
+
+.heart {
+  height: 30px;
+  width: 30px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+UL {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+  display: flex;
+}
