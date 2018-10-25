@@ -19,7 +19,7 @@ const defaultColor = '#FFFFFF';
 const wallColor = '#000000';
 
 var levelMap;
-const gridMax = 7;
+var gridMax = 0;
 const gridMin = 0;
 var userArmed = false;
 var currentLevel = 1;
@@ -30,6 +30,7 @@ const maxLevel = levels.length;
 var autoMove;
 var gameActive = true;
 
+
 function newGame() {
   addLife();
   addLife();
@@ -39,6 +40,7 @@ function newGame() {
   monsterSpeed = 500;
   loadLevel();
 }
+
 
 function loadLevel() {
   if (userLives < 1) {
@@ -57,12 +59,47 @@ function loadLevel() {
   }
 }
 
+
+function createTable(size) {
+	var table = document.createElement('table');
+	table.className = 'grid';
+	
+	for (var i = 0; i <= size; i++) {
+		var tr = document.createElement('tr');
+		for (var j = 0; j <= size; j++) {
+			var td = document.createElement('td');
+			td.setAttribute('id', i + '-' + j);
+			tr.appendChild(td);
+		}
+		table.appendChild(tr);
+	}
+	document.getElementById('tableJS').appendChild(table);
+}
+
+
+function clearTable() {
+	const tableArea = document.getElementById('tableJS');
+	if (tableArea.childNodes.length > 0)
+	  tableArea.removeChild(tableArea.childNodes[0]);
+}
+
+
 function loadMap() {
   levelMap = levels[currentLevel - 1];
-
+  gridMax = levelMap.length - 1;
+  clearTable();
+  createTable(gridMax);
+  
   for (var i = 0; i < levelMap.length; i++) {
     for (var j = 0; j < levelMap[i].length; j++) {
-      var coord = i.toString() + j.toString();
+		
+	  // Validate level
+	  if (levelMap[i].length != levelMap.length) {
+		  alert('Level Map is not a square. Cannot load level.');
+		  return;
+	  }
+	  
+      var coord = i.toString() + '-' + j.toString();
       switch (levelMap[i][j]) {
         case 'u':
           document.getElementById(coord).style.background = defaultColor;

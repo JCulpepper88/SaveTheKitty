@@ -13,9 +13,9 @@ function randomMove() {
 
 
 function updateUserCoord(x,y) {
-  var newCoord = y.toString() + x.toString();
-  var oldCoord = userPoint[0].toString() + userPoint[1].toString();
-  var monsterCoord = monsterPoint[0].toString() + monsterPoint[1].toString();
+  var newCoord = y.toString() + '-' + x.toString();
+  var oldCoord = userPoint[0].toString() + '-' + userPoint[1].toString();
+  var monsterCoord = monsterPoint[0].toString() + '-' + monsterPoint[1].toString();
   if (oldCoord != monsterCoord) {
     document.getElementById(oldCoord).innerHTML = '';
     document.getElementById(newCoord).innerHTML = '<img src=\"' + userURL + '\">';
@@ -70,8 +70,8 @@ function moveMonster() {
 
   } while (!valid);
 
-  const newCoord = newy.toString() + newx.toString();
-  const oldCoord = monsterPoint[0].toString() + monsterPoint[1].toString();
+  const newCoord = newy.toString() + '-' + newx.toString();
+  const oldCoord = monsterPoint[0].toString() + '-' + monsterPoint[1].toString();
   document.getElementById(oldCoord).innerHTML = '';
   document.getElementById(newCoord).innerHTML = '<img src=\"' + monsterURL + '\">';
   monsterPoint[1] = newx;
@@ -124,7 +124,7 @@ function comparePoints() {
     endLevel('You fell into the abyss!');
     if (userLives > 0)
       restartLevelAlert();
-    const userCoord = userPoint[0].toString() + userPoint[1].toString();
+    const userCoord = userPoint[0].toString() + '-' + userPoint[1].toString();
     document.getElementById(userCoord).innerHTML = '<img src=\"' + abyssURL + '\">';
   }
   
@@ -135,7 +135,7 @@ function comparePoints() {
     endLevel('The monster killed the kitty!');
     if (userLives > 0)
       restartLevelAlert();
-    const monsterCoord = monsterPoint[0].toString() + monsterPoint[1].toString();
+    const monsterCoord = monsterPoint[0].toString() + '-' + monsterPoint[1].toString();
     document.getElementById(monsterCoord).innerHTML = '<img src=\"' + catDiesURL + '\">';
   }
 
@@ -149,7 +149,7 @@ function comparePoints() {
   if (userPoint[0] == weaponPoint[0] && userPoint[1] == weaponPoint[1]) {
     userURL = armedUserURL;
     userArmed = true;
-    const userCoord = userPoint[0].toString() + userPoint[1].toString();
+    const userCoord = userPoint[0].toString() + '-' + userPoint[1].toString();
     document.getElementById(userCoord).innerHTML = '<img src=\"' + userURL + '\">';
     weaponPoint = [gridMax + 1, gridMax + 1];
     alert('You got the weapon!');
@@ -160,7 +160,7 @@ function comparePoints() {
 function userMonsterEncounter() {
   if (!gameActive) // this prevents duplicate calls
     return;
-  const userCoord = userPoint[0].toString() + userPoint[1].toString();
+  const userCoord = userPoint[0].toString() + '-' + userPoint[1].toString();
   if (userArmed) {
     endLevel('You killed the monster!');
     victoryAlert();
@@ -199,7 +199,7 @@ function addLife() {
 
 function loseLife() {
   userLives--;
-  const lives = document.getElementById('lives')
+  const lives = document.getElementById('lives');
   lives.removeChild(lives.childNodes[0]);
 }
 
