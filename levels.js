@@ -222,4 +222,40 @@ const evil =
  '********',
 ];
 
-const levels = [level1, level2, level3, level4, level15, level5, level16, level6, level7, level8, level11, level12, level13, level9, level10, level14, evil];
+const level17 = // by John Culpepper
+[
+ '--------',
+ '-**-**--',
+ '--*w*---',
+ '*-***--*',
+ '--------',
+ '-*-m-*--',
+ '------k-',
+ '-u--*---',
+];
+
+const level18 = // by John Culpepper
+[
+ '----=---',
+ '-w=---=-',
+ '---=--k-',
+ '-=---=--',
+ '--=-m--=',
+ '=---=---',
+ '--=---=-',
+ '----=--u',
+];
+
+const level19 = // by John Culpepper
+[
+ '-=--u--=',
+ 'k--=-=--',
+ '---m----',
+ '***---*-',
+ 'w*--*---',
+ '-*------',
+ '-*-*----',
+ '-------*',
+];
+
+const levels = [level1, level2, level3, level4, level15, level5, level17, level18, level16, level6, level7, level19, level8, level11, level12, level13, level9, level10, level14, evil];
