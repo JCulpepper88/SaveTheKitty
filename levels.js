@@ -16,6 +16,11 @@ k kitty
 w weapon
 * hole
 = wall
+
+Level Design:
+  1-10 Bradley Harris
+  11-19 John Culpepper
+  20 ("evil") Bradley Harris
 */
 
 const level1 = 
@@ -138,7 +143,7 @@ const level10 =
  '*---u--*',
 ];
 
-const level11 = // by John Culpepper
+const level11 =
 [
  'u--=--k-',
  '-*---=-=',
@@ -150,7 +155,7 @@ const level11 = // by John Culpepper
  '-=-=-=-w',
 ];
 
-const level12 = // by John Culpepper
+const level12 =
 [
  '---*--u-',
  '-k------',
@@ -162,7 +167,7 @@ const level12 = // by John Culpepper
  '-w*--*--',
 ];
 
-const level13 = // by John Culpepper
+const level13 =
 [
  'u-------',
  '***--*--',
@@ -174,7 +179,7 @@ const level13 = // by John Culpepper
  '--*----w',
 ];
 
-const level14 = // by John Culpepper
+const level14 =
 [
  '--------',
  '-*===*=-',
@@ -186,7 +191,7 @@ const level14 = // by John Culpepper
  '*---*--u',
 ];
 
-const level15 = // by John Culpepper
+const level15 =
 [
  '*----*--',
  '-w=-----',
@@ -198,7 +203,7 @@ const level15 = // by John Culpepper
  'k--*---u',
 ];
 
-const level16 = // by John Culpepper
+const level16 =
 [
  '---*---*',
  '-*---*--',
@@ -208,6 +213,42 @@ const level16 = // by John Culpepper
  '-*---*--',
  '---u----',
  '--------',
+];
+
+const level17 =
+[
+ '--------',
+ '-**-**--',
+ '--*w*---',
+ '*-***--*',
+ '--------',
+ '-*-m-*--',
+ '------k-',
+ '-u--*---',
+];
+
+const level18 =
+[
+ '----=---',
+ '-w=---=-',
+ '---=--k-',
+ '-=---=--',
+ '--=-m--=',
+ '=---=---',
+ '--=---=-',
+ '----=--u',
+];
+
+const level19 =
+[
+ '-=--u--=',
+ 'k--=-=--',
+ '---m----',
+ '***---*-',
+ 'w*--*---',
+ '-*------',
+ '-*-*----',
+ '-------*',
 ];
 
 const evil = 
@@ -220,42 +261,6 @@ const evil =
  '*=****=*',
  '*======*',
  '********',
-];
-
-const level17 = // by John Culpepper
-[
- '--------',
- '-**-**--',
- '--*w*---',
- '*-***--*',
- '--------',
- '-*-m-*--',
- '------k-',
- '-u--*---',
-];
-
-const level18 = // by John Culpepper
-[
- '----=---',
- '-w=---=-',
- '---=--k-',
- '-=---=--',
- '--=-m--=',
- '=---=---',
- '--=---=-',
- '----=--u',
-];
-
-const level19 = // by John Culpepper
-[
- '-=--u--=',
- 'k--=-=--',
- '---m----',
- '***---*-',
- 'w*--*---',
- '-*------',
- '-*-*----',
- '-------*',
 ];
 
 const levels = [level1, level2, level3, level4, level15, level5, level17, level18, level16, level6, level7, level19, level8, level11, level12, level13, level9, level10, level14, evil];

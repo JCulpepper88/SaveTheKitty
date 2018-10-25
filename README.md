@@ -1,9 +1,17 @@
 Save the Kitty
 ==============
 
-Get the weapon and kill the monster before it gets to the kitty! The monster moves in a random direction every half second.
+## Goal
 
-Each of the levels is an array of characters parsed by the program. The user begins with 2 lives. After completing all the levels, you return to level 1, but the monster doubles in speed, and the user gains a life.
+Get the weapon and kill the monster before it gets to the kitty! 
+
+## Design
+
+Each of the levels is an array of characters parsed by the program. A table displaying the level is rendered dynamically based on the grid size of each level.
+
+The monster moves in a random direction every half second.
+
+The user begins with 2 lives. After completing all the levels, you return to level 1, but the monster doubles in speed, and the user gains a life.
 
 ## Issues
 

@@ -43,12 +43,11 @@ IMG {
 .stats {
   display: flex;
   background-color: #FFFFFF;
-  width: 470px;
+  width: 250px;
   margin: auto;
+  margin-top: 10px;
   padding: 5px;
-  border-bottom: 2px solid black;
-  border-left: 2px solid black;
-  border-right: 2px solid black;
+  border: 2px solid black;
 }
 
 .heart {
