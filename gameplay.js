@@ -115,6 +115,8 @@ function comparePoints() {
   if (fellIntoTheAbyss) {
     loseLife();
     endLevel('You fell into the abyss!');
+    if (userLives > 0)
+      restartLevelAlert();
     const userCoord = userPoint[0].toString() + userPoint[1].toString();
     document.getElementById(userCoord).innerHTML = '<img src=\"' + abyssURL + '\">';
   }
@@ -124,6 +126,8 @@ function comparePoints() {
   if (kittyPoint[0] == monsterPoint[0] && kittyPoint[1] == monsterPoint[1]) {
     loseLife();
     endLevel('The monster killed the kitty!');
+    if (userLives > 0)
+      restartLevelAlert();
     const monsterCoord = monsterPoint[0].toString() + monsterPoint[1].toString();
     document.getElementById(monsterCoord).innerHTML = '<img src=\"' + catDiesURL + '\">';
   }
@@ -151,6 +155,7 @@ function userMonsterEncounter() {
   const userCoord = userPoint[0].toString() + userPoint[1].toString();
   if (userArmed) {
     endLevel('You killed the monster!');
+    victoryAlert();
     document.getElementById(userCoord).innerHTML = '<img src=\"' + victoryURL + '\">';
     kittensSaved++;
     document.getElementById('saved').innerHTML = kittensSaved;
@@ -159,12 +164,13 @@ function userMonsterEncounter() {
       currentLevel = 1;
       monsterSpeed = monsterSpeed / 2;
       addLife();
-    }      
-    victoryAlert();
+    }    
   }
   else {
     loseLife();
     endLevel('The monster killed you!');
+    if (userLives > 0)
+      restartLevelAlert();
     document.getElementById(userCoord).innerHTML = '<img src=\"' + userDiesURL + '\">';
   }
   gameActive = false;

@@ -11,7 +11,7 @@ function victoryAlert() {
 }
 
 function gameOverAlert() {
-  document.getElementById('message').innerHTML += '<p>Game over.</p>';
+  document.getElementById('message').innerHTML += '<p>Game over. Press Spacebar to play again.</p>';
 }
 
 function initialAlert() {
