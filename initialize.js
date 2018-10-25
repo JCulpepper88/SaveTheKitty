@@ -61,27 +61,27 @@ function loadLevel() {
 
 
 function createTable(size) {
-	var table = document.createElement('table');
-	table.className = 'grid';
+  var table = document.createElement('table');
+  table.className = 'grid';
 	
-	for (var i = 0; i <= size; i++) {
-		var tr = document.createElement('tr');
-		for (var j = 0; j <= size; j++) {
-			var td = document.createElement('td');
-			td.setAttribute('id', i + '-' + j);
-			td.setAttribute('style', 'height: ' + 500/size + '; width: ' + 500/size + ';');
-			tr.appendChild(td);
-		}
-		table.appendChild(tr);
-	}
-	document.getElementById('tableJS').appendChild(table);
+  for (var i = 0; i <= size; i++) {
+    var tr = document.createElement('tr');
+    for (var j = 0; j <= size; j++) {
+      var td = document.createElement('td');
+      td.setAttribute('id', i + '-' + j);
+      td.setAttribute('style', 'height: ' + 500/size + '; width: ' + 500/size + ';');
+      tr.appendChild(td);
+    }
+    table.appendChild(tr);
+  }
+  document.getElementById('tableJS').appendChild(table);
 }
 
 
 function clearTable() {
-	const tableArea = document.getElementById('tableJS');
-	if (tableArea.childNodes.length > 0)
-	  tableArea.removeChild(tableArea.childNodes[0]);
+  const tableArea = document.getElementById('tableJS');
+  if (tableArea.childNodes.length > 0)
+    tableArea.removeChild(tableArea.childNodes[0]);
 }
 
 

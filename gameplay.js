@@ -122,7 +122,7 @@ function comparePoints() {
   if (fellIntoTheAbyss) {
     loseLife();
     endLevel('You fell into the abyss!');
-    if (userLives > 0)
+    if (isAlive)
       restartLevelAlert();
     const userCoord = userPoint[0].toString() + '-' + userPoint[1].toString();
     document.getElementById(userCoord).innerHTML = '<img src=\"' + abyssURL + '\">';
@@ -133,7 +133,7 @@ function comparePoints() {
   if (kittyPoint[0] == monsterPoint[0] && kittyPoint[1] == monsterPoint[1]) {
     loseLife();
     endLevel('The monster killed the kitty!');
-    if (userLives > 0)
+    if (isAlive)
       restartLevelAlert();
     const monsterCoord = monsterPoint[0].toString() + '-' + monsterPoint[1].toString();
     document.getElementById(monsterCoord).innerHTML = '<img src=\"' + catDiesURL + '\">';
@@ -177,7 +177,7 @@ function userMonsterEncounter() {
   else {
     loseLife();
     endLevel('The monster killed you!');
-    if (userLives > 0)
+    if (isAlive)
       restartLevelAlert();
     document.getElementById(userCoord).innerHTML = '<img src=\"' + userDiesURL + '\">';
   }
@@ -208,7 +208,7 @@ function endLevel(message) {
   clearInterval(autoMove);
   alert(message);
   gameActive = false;
-  if (userLives < 1)
+  if (!isAlive)
     gameOverAlert();
 }
 
@@ -217,26 +217,27 @@ function keyCheck(e) {
 
   evt = e.keyCode || e.charCode;
 
-  if (evt == 37) { // Left Arrow
-    event.preventDefault();
-    moveUser('left');
-  }
-  else if (evt == 38) { // Up Arrow
-    event.preventDefault();
-    moveUser('up');
-  }
-  else if (evt == 39) { // Right Arrow
-    event.preventDefault();
-    moveUser('right');
-  }
-  else if (evt == 40) { // Down Arrow
-    event.preventDefault();
-    moveUser('down');
-  }
-  else if (evt == 32) { // Space
-    event.preventDefault();
-    if (!gameActive)
-      loadLevel();
+  switch (evt) {
+    case 37: // Left Arrow
+      event.preventDefault();
+      moveUser('left');
+      break;
+    case 38: // Up Arrow
+      event.preventDefault();
+      moveUser('up');
+      break;
+    case 39: // Right Arrow
+      event.preventDefault();
+      moveUser('right');
+      break;
+    case 40: // Down Arrow
+      event.preventDefault();
+      moveUser('down');
+      break;
+    case 32:
+      event.preventDefault();
+      if (!gameActive)
+        loadLevel();
   }
 }
 
