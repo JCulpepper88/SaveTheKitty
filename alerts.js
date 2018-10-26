@@ -16,9 +16,9 @@ function gameOverAlert() {
 
 function initialAlert() {
   const msg = document.getElementById('message');
-  msg.innerHTML = '<p>Get the weapon and slay the monster before it gets to the kitten!</p>';
+  msg.innerHTML = '<p>Get the weapon and slay the monsters before they get to the kitten!</p>';
   if (currentLevel == 1 && monsterSpeed == 500)
-    msg.innerHTML += '<p>You are blue. Use arrow keys to move.</p>';
+    msg.innerHTML += '<p>Use arrow keys to move.</p>';
   else
     msg.innerHTML += '<p>Watch out for holes!</p>';
 }

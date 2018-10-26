@@ -12,22 +12,6 @@ function randomMove() {
 }
 
 
-function updateUserCoord(x,y) {
-  var newCoord = y.toString() + '-' + x.toString();
-  var oldCoord = userPoint[0].toString() + '-' + userPoint[1].toString();
-  // var monsterCoord = monsterPoint[0].toString() + '-' + monsterPoint[1].toString();
-//  if (oldCoord != monsterCoord) {
-    document.getElementById(oldCoord).innerHTML = '';
-    document.getElementById(newCoord).innerHTML = '<img src=\"' + userURL + '\">';
-//  }
- // else // it would be nice to limit this to cases where the user and monster switch places
-  //  userMonsterEncounter();
-	
-  userPoint[1] = x;
-  userPoint[0] = y;
-}
-
-
 function isHole(x, y) {
   return levelMap[y][x] == '*';
 }
@@ -39,51 +23,52 @@ function isWall(x, y) {
 
 
 function isAlive() {
- return userLives > 0;
+  return userLives > 0;
 }
 
 
-function moveMonster() {
+function moveMonsters() {
   for (var i = 0; i < monsterPoints.length; i++) {
 
-  var newx;
-  var newy;
+    var newx;
+    var newy;
 
-  do {
-    var valid = true;
-    var change = randomMove();
-    const x = parseInt(monsterPoints[i][1]);
-    const y = parseInt(monsterPoints[i][0]);
-    newx = x + change[0];
-    newy = y + change[1];
+    do {
+      var valid = true;
+      var change = randomMove();
+      const x = monsterPoints[i][1];
+      const y = monsterPoints[i][0];
+      newx = x + change[0];
+      newy = y + change[1];
+	  
+      // monster cannot move off the grid
+      if (newx < gridMin || newx > gridMax || newy < gridMin || newy > gridMax)
+        valid = false;
 	
-    // monster cannot move into the weapon
-    if (newy == weaponPoint[0] && newx == weaponPoint[1])
-      valid = false;
-  
-    // monster cannot move off the grid
-    if (newx < gridMin || newx > gridMax || newy < gridMin || newy > gridMax)
-      valid = false;
+	  else {
+        const hole = isHole(newx, newy);
+        const wall = isWall(newx, newy);
+		
+		// monster cannot move into the weapon
+        if (newy == weaponPoint[0] && newx == weaponPoint[1])
+          valid = false;
 
-    // monster cannot move into a hole or wall
-    const hole = isHole(newx, newy);
-	const wall = isWall(newx, newy);
-	if (hole || wall)
-      valid = false;
+        // monster cannot move into a hole or wall
+        else if (hole || wall)
+          valid = false;
 
-   // monster cannot move into another monster
-   // not implemented
+       // monster cannot move into another monster
+       // not implemented
+	  }	
+    } while (!valid);
 
-  } while (!valid);
-
-  const newCoord = newy.toString() + '-' + newx.toString();
-  const oldCoord = monsterPoints[i][0].toString() + '-' + monsterPoints[i][1].toString();
-  document.getElementById(oldCoord).innerHTML = '';
-  document.getElementById(newCoord).innerHTML = '<img src=\"' + monsterURL + '\">';
-  monsterPoints[i][1] = newx;
-  monsterPoints[i][0] = newy;
-
-  } // end for loop
+    const newCoord = newy.toString() + '-' + newx.toString();
+    const oldCoord = monsterPoints[i][0].toString() + '-' + monsterPoints[i][1].toString();
+    document.getElementById(oldCoord).innerHTML = '';
+    document.getElementById(newCoord).innerHTML = '<img src=\"' + monsterURL + '\">';
+    monsterPoints[i][1] = newx;
+    monsterPoints[i][0] = newy;
+  }
 
   comparePoints();
 }
@@ -93,8 +78,8 @@ function moveUser(dir) {
   if (!gameActive) // User can only move when game is active
     return;
 	
-  var x = parseInt(userPoint[1]);
-  var y = parseInt(userPoint[0]);
+  var x = userPoint[1];
+  var y = userPoint[0];
 
   switch (dir) {
     case 'left':
@@ -117,8 +102,15 @@ function moveUser(dir) {
 
   // prevent user from moving onto kitty or a wall
   const barrier = isWall(x, y);
-  if (!barrier && (x != kittyPoint[1] || y != kittyPoint[0]))
-    updateUserCoord(x,y);
+  if (!barrier && (x != kittyPoint[1] || y != kittyPoint[0])) {
+    var newCoord = y.toString() + '-' + x.toString();
+    var oldCoord = userPoint[0].toString() + '-' + userPoint[1].toString();
+    document.getElementById(oldCoord).innerHTML = '';
+    document.getElementById(newCoord).innerHTML = '<img src=\"' + userURL + '\">';
+    userPoint[1] = x;
+    userPoint[0] = y;
+  }
+
   comparePoints();
 }
 
@@ -157,7 +149,6 @@ function comparePoints() {
 
   if (userPoint[0] == monsterPoints[i][0] && userPoint[1] == monsterPoints[i][1])
     userMonsterEncounter();
-
   }
 
 // User + Weapon
@@ -173,33 +164,50 @@ function comparePoints() {
 }
 
 
-function userMonsterEncounter() {
-  if (!gameActive) // this prevents duplicate calls
-    return;
-  const userCoord = userPoint[0].toString() + '-' + userPoint[1].toString();
-  const kittyCoord = kittyPoint[0].toString() + '-' + kittyPoint[1].toString();
-  if (userArmed) {
-    endLevel('You killed the monster!');
-    victoryAlert();
-    document.getElementById(userCoord).innerHTML = '<img src=\"' + victoryURL + '\">';
-    document.getElementById(kittyCoord).innerHTML = '<img src=\"' + catLivesURL + '\">';
-    kittensSaved++;
-    document.getElementById('saved').innerHTML = kittensSaved;
-    currentLevel++;
-    if (currentLevel > maxLevel) {
-      currentLevel = 1;
-      monsterSpeed = monsterSpeed / 2;
-      addLife();
-    }    
+function getMonsterIndex(x, y) {
+  for (var i = 0; i < monsterPoints.length; i++) {
+    if (monsterPoints[i][0] == x && monsterPoints[i][1] == y)
+      return i;
   }
-  else {
+  return -1;
+}
+
+
+function userMonsterEncounter() {
+  const userCoord = userPoint[0].toString() + '-' + userPoint[1].toString();
+
+  if (userArmed) { // if user has the weapon
+    // remove monsterpoint from array
+    const monsterLocation = getMonsterIndex(userPoint[0], userPoint[1]);
+	if (monsterLocation != -1)
+      monsterPoints.splice(monsterLocation, 1);
+  
+    document.getElementById(userCoord).innerHTML = '<img src=\"' + victoryURL + '\">';
+    if (monsterPoints.length > 0)  // if there are more monsters
+      alert('You killed a monster!');
+    else { // if there are no more monsters
+      endLevel('You killed all the monsters!');
+      victoryAlert();
+      const kittyCoord = kittyPoint[0].toString() + '-' + kittyPoint[1].toString();
+      document.getElementById(kittyCoord).innerHTML = '<img src=\"' + catLivesURL + '\">';
+      kittensSaved++;
+      document.getElementById('saved').innerHTML = kittensSaved;
+      currentLevel++;
+      if (currentLevel > maxLevel) {
+        currentLevel = 1;
+        monsterSpeed = monsterSpeed / 2;
+        addLife();
+      }    
+    }
+  }
+  else { // if user has no weapon
     loseLife();
     endLevel('The monster killed you!');
     if (isAlive)
       restartLevelAlert();
     document.getElementById(userCoord).innerHTML = '<img src=\"' + userDiesURL + '\">';
+    gameActive = false;
   }
-  gameActive = false;
 }
 
 

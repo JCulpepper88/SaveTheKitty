@@ -56,7 +56,7 @@ function loadLevel() {
     initialAlert();
     loadMap();
     gameActive = true;
-    autoMove = setInterval(moveMonster, monsterSpeed);
+    autoMove = setInterval(moveMonsters, monsterSpeed);
   }
 }
 
