@@ -339,7 +339,7 @@ const level23 =
 ];
 
 const levels = [
-level23, level1, level2, level3, level4, level15, 
+level1, level2, level3, level4, level15, 
 level17, level5, level6, level18, level16,
 level7, level19, level8, level21, level22,
 level11, level12, level13, level9, level10, 
