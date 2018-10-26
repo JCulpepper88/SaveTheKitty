@@ -15,13 +15,14 @@ function randomMove() {
 function updateUserCoord(x,y) {
   var newCoord = y.toString() + '-' + x.toString();
   var oldCoord = userPoint[0].toString() + '-' + userPoint[1].toString();
-  var monsterCoord = monsterPoint[0].toString() + '-' + monsterPoint[1].toString();
-  if (oldCoord != monsterCoord) {
+  // var monsterCoord = monsterPoint[0].toString() + '-' + monsterPoint[1].toString();
+//  if (oldCoord != monsterCoord) {
     document.getElementById(oldCoord).innerHTML = '';
     document.getElementById(newCoord).innerHTML = '<img src=\"' + userURL + '\">';
-  }
-  else // it would be nice to limit this to cases where the user and monster switch places
-    userMonsterEncounter();  
+//  }
+ // else // it would be nice to limit this to cases where the user and monster switch places
+  //  userMonsterEncounter();
+	
   userPoint[1] = x;
   userPoint[0] = y;
 }
@@ -43,14 +44,16 @@ function isAlive() {
 
 
 function moveMonster() {
+  for (var i = 0; i < monsterPoints.length; i++) {
+
   var newx;
   var newy;
 
   do {
     var valid = true;
     var change = randomMove();
-    const x = parseInt(monsterPoint[1]);
-    const y = parseInt(monsterPoint[0]);
+    const x = parseInt(monsterPoints[i][1]);
+    const y = parseInt(monsterPoints[i][0]);
     newx = x + change[0];
     newy = y + change[1];
 	
@@ -68,14 +71,20 @@ function moveMonster() {
 	if (hole || wall)
       valid = false;
 
+   // monster cannot move into another monster
+   // not implemented
+
   } while (!valid);
 
   const newCoord = newy.toString() + '-' + newx.toString();
-  const oldCoord = monsterPoint[0].toString() + '-' + monsterPoint[1].toString();
+  const oldCoord = monsterPoints[i][0].toString() + '-' + monsterPoints[i][1].toString();
   document.getElementById(oldCoord).innerHTML = '';
   document.getElementById(newCoord).innerHTML = '<img src=\"' + monsterURL + '\">';
-  monsterPoint[1] = newx;
-  monsterPoint[0] = newy;
+  monsterPoints[i][1] = newx;
+  monsterPoints[i][0] = newy;
+
+  } // end for loop
+
   comparePoints();
 }
 
@@ -128,21 +137,28 @@ function comparePoints() {
     document.getElementById(userCoord).innerHTML = '<img src=\"' + abyssURL + '\">';
   }
   
-// Monster + Kitty
+// Monsters + Kitty
 
-  if (kittyPoint[0] == monsterPoint[0] && kittyPoint[1] == monsterPoint[1]) {
+  for (var i = 0; i < monsterPoints.length; i++) {
+
+  if (kittyPoint[0] == monsterPoints[i][0] && kittyPoint[1] == monsterPoints[i][1]) {
     loseLife();
     endLevel('The monster killed the kitty!');
     if (isAlive)
       restartLevelAlert();
-    const monsterCoord = monsterPoint[0].toString() + '-' + monsterPoint[1].toString();
+    const monsterCoord = monsterPoints[i][0].toString() + '-' + monsterPoints[i][1].toString();
     document.getElementById(monsterCoord).innerHTML = '<img src=\"' + catDiesURL + '\">';
   }
+  } // end for loop
 
-// Monster + User
+// Monsters + User
 
-  if (userPoint[0] == monsterPoint[0] && userPoint[1] == monsterPoint[1])
+  for (var i = 0; i < monsterPoints.length; i++) {
+
+  if (userPoint[0] == monsterPoints[i][0] && userPoint[1] == monsterPoints[i][1])
     userMonsterEncounter();
+
+  }
 
 // User + Weapon
 
@@ -161,10 +177,12 @@ function userMonsterEncounter() {
   if (!gameActive) // this prevents duplicate calls
     return;
   const userCoord = userPoint[0].toString() + '-' + userPoint[1].toString();
+  const kittyCoord = kittyPoint[0].toString() + '-' + kittyPoint[1].toString();
   if (userArmed) {
     endLevel('You killed the monster!');
     victoryAlert();
     document.getElementById(userCoord).innerHTML = '<img src=\"' + victoryURL + '\">';
+    document.getElementById(kittyCoord).innerHTML = '<img src=\"' + catLivesURL + '\">';
     kittensSaved++;
     document.getElementById('saved').innerHTML = kittensSaved;
     currentLevel++;

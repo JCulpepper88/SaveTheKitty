@@ -20,5 +20,4 @@ After completing all the levels, it resets to level 1, but the monster doubles i
 ## Issues
 
 * Sometimes the monster move function can't seem to find the level map.
-* I plan to make multiple monsters possible.
 * I eventually plan to connect this to a database to keep track of high scores.

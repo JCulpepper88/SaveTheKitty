@@ -17,9 +17,13 @@ w weapon
 * hole
 = wall
 
+Constraints:
+ - Level must be square (same number of rows and columns)
+ - Level should have one user, one kitty, one weapon, and at least one monster
+
 Level Design:
-  1-10, final "evil" level: Bradley Harris
-  11-20: John Culpepper
+  1-10: Bradley Harris
+  11-22: John Culpepper
 */
 
 const level1 = 
@@ -301,22 +305,10 @@ const level22 =
  'u--=----=-----=',
 ];
 
-const evil = 
-[
- '********',
- '*======*',
- '*=****=*',
- '*=*km*=*',
- '*=*uw*=*',
- '*=****=*',
- '*======*',
- '********',
-];
-
 const levels = [
 level1, level2, level3, level4, level15, 
 level17, level5, level6, level18, level16,
 level7, level19, level8, level21, level22,
 level11, level12, level13, level9, level10, 
-level14, level20, evil
+level14, level20
 ];

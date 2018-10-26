@@ -1,5 +1,5 @@
 var userPoint = [];
-var monsterPoint = [];
+var monsterPoints = [];
 var kittyPoint = [];
 var weaponPoint = [];
 
@@ -11,6 +11,7 @@ const kittyURL = 'images/cat.png';
 const weaponURL = 'images/sword.png';
 const victoryURL = 'images/victory.png';
 const catDiesURL = 'images/catdies.png';
+const catLivesURL = 'images/happycat.png';
 const userDiesURL = 'images/userdies.png';
 const holeURL = 'images/hole.png';
 const abyssURL = 'images/abyss.png';
@@ -90,6 +91,7 @@ function loadMap() {
   gridMax = levelMap.length - 1;
   clearTable();
   createTable(gridMax);
+  monsterPoints = [];
   
   for (var i = 0; i < levelMap.length; i++) {
     for (var j = 0; j < levelMap[i].length; j++) {
@@ -100,43 +102,44 @@ function loadMap() {
 		  return;
 	  }
 	  
-      var coord = i.toString() + '-' + j.toString();
+      const coord = i.toString() + '-' + j.toString();
+	  const cell = document.getElementById(coord);
       switch (levelMap[i][j]) {
         case 'u':
-          document.getElementById(coord).style.background = defaultColor;
-          document.getElementById(coord).innerHTML = '<img src=\"' + userURL + '\">';
+          cell.style.background = defaultColor;
+          cell.innerHTML = '<img src=\"' + userURL + '\">';
           userPoint[0] = i;
           userPoint[1] = j;
           break;
         case 'k':
-          document.getElementById(coord).style.background = defaultColor;
-          document.getElementById(coord).innerHTML = '<img src=\"' + kittyURL + '\">';
+          cell.style.background = defaultColor;
+          cell.innerHTML = '<img src=\"' + kittyURL + '\">';
           kittyPoint[0] = i;
           kittyPoint[1] = j;
           break;
         case 'm':
-          document.getElementById(coord).style.background = defaultColor;
-          document.getElementById(coord).innerHTML = '<img src=\"' + monsterURL + '\">';
-          monsterPoint[0] = i;
-          monsterPoint[1] = j;
+          cell.style.background = defaultColor;
+          cell.innerHTML = '<img src=\"' + monsterURL + '\">';
+          var monsterPoint = [i, j];
+          monsterPoints[monsterPoints.length] = monsterPoint;  
           break;
         case 'w':
-          document.getElementById(coord).style.background = defaultColor;
-          document.getElementById(coord).innerHTML = '<img src=\"' + weaponURL + '\">';
+          cell.style.background = defaultColor;
+          cell.innerHTML = '<img src=\"' + weaponURL + '\">';
           weaponPoint[0] = i;
           weaponPoint[1] = j;
           break;
         case '=':
-          document.getElementById(coord).innerHTML = '';
-          document.getElementById(coord).style.background = wallColor;
+          cell.style.background = wallColor;
+		  cell.innerHTML = '';          
           break;
         case '*':
-          document.getElementById(coord).style.background = defaultColor;
-          document.getElementById(coord).innerHTML = '<img src=\"' + holeURL + '\">';
+          cell.style.background = defaultColor;
+          cell.innerHTML = '<img src=\"' + holeURL + '\">';
           break;
         default:
-          document.getElementById(coord).style.background = defaultColor;
-          document.getElementById(coord).innerHTML = '';
+          cell.style.background = defaultColor;
+          cell.innerHTML = '';
           break;
       }
     }
