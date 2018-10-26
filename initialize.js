@@ -69,7 +69,7 @@ function createTable(size) {
     for (var j = 0; j <= size; j++) {
       var td = document.createElement('td');
       td.setAttribute('id', i + '-' + j);
-      td.setAttribute('style', 'height: ' + 500/size + '; width: ' + 500/size + ';');
+      td.setAttribute('style', 'height: ' + 450/size + '; width: ' + 450/size + ';');
       tr.appendChild(td);
     }
     table.appendChild(tr);
