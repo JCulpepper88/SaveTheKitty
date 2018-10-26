@@ -23,26 +23,15 @@ IMG {
   display: inline-block;
 }
 
-.alert {
-  background-color: #808080;
-  display: inline-block;
-  padding: 10px;
-  margin: 10px;
-  height: 75px;
-  width: 50%;
-}
-
 .message {
   display: block;
-  color: white;
   font-weight: bold;
-  font-size: 16px;
+  text-align: center;
 }
 
 .stats {
   display: flex;
   background-color: #FFFFFF;
-  width: 250px;
   margin: auto;
   margin-top: 10px;
   padding: 5px;
