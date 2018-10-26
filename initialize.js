@@ -29,7 +29,7 @@ var userLives = 0;
 var monsterSpeed = 500; // lower is faster
 const maxLevel = levels.length;
 var autoMove;
-var gameActive = true;
+var gameActive = false;
 
 
 function newGame() {
@@ -48,8 +48,10 @@ function loadLevel() {
     newGame();
   }
   else {
+    
     userURL = unarmedUserURL;
     userArmed = false;
+    document.getElementById('onload').style.display = 'none';
     document.getElementById('level').innerHTML = currentLevel;
     document.getElementById('saved').innerHTML = kittensSaved;
     document.getElementById('speed').innerHTML = 500/monsterSpeed;

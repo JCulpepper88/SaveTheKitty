@@ -9,15 +9,30 @@
 
 </head>
 
-<body onload="newGame();">
+<body>
 
 <h1>Save the Kitty</h1>
+
+<div id="onload" class="onload">
+  <p>Your mission:</p>
+  <img src="images/user.png" style="width: 50px; height: 50px;">
+  <img src="images/sword.png" style="width: 50px; height: 50px;">
+  <p>Get the weapon.</p>
+  <img src="images/armed.png" style="width: 50px; height: 50px;">
+  <img src="images/monster.png" style="width: 50px; height: 50px;">
+  <p>Slay the monsters before they get to the kitten!</p>
+  <img src="images/cat.png" style="width: 50px; height: 50px;">
+  <p>Use the arrow keys to move, and watch out for holes!</p>
+  <img src="images/hole.png" style="width: 50px; height: 50px;">
+  <p>Press Spacebar to begin.</p>
+  
+</div>
 
 <div id="tableJS"></div>
 
 <div class="stats">
   <div>
-    <p><b>Level <span id="level"></span> (Speed <span id="speed"></span>)</p>
+    <p><b>Level <span id="level">0</span> (Speed <span id="speed">0</span>)</p>
     <p>Kittens Saved: <span id="saved">0</span></b>
   </div>
   <div class="spacer"></div>
