@@ -6,7 +6,9 @@ var weaponPoint = [];
 const unarmedUserURL = 'images/user.png';
 const armedUserURL = 'images/armed.png';
 var userURL = unarmedUserURL;
-const monsterURL = 'images/monster.png';
+const angryMonsterURL = 'images/monster.png';
+const scaredMonsterURL = 'images/monsterscared.png';
+var monsterURL = angryMonsterURL;
 const kittyURL = 'images/cat.png';
 const weaponURL = 'images/sword.png';
 const victoryURL = 'images/victory.png';
@@ -48,7 +50,7 @@ function loadLevel() {
     newGame();
   }
   else {
-    
+    monsterURL = angryMonsterURL;
     userURL = unarmedUserURL;
     userArmed = false;
     document.getElementById('onload').style.display = 'none';
