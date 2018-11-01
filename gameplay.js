@@ -154,6 +154,7 @@ function comparePoints() {
 
   if (userPoint[0] == weaponPoint[0] && userPoint[1] == weaponPoint[1]) {
     userURL = armedUserURL;
+    monsterURL = scaredMonsterURL;
     userArmed = true;
     document.getElementById(toCoord(userPoint[0], userPoint[1])).innerHTML = '<img src=\"' + userURL + '\">';
     weaponPoint = [gridMax + 1, gridMax + 1];
