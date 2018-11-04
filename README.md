@@ -19,5 +19,5 @@ After completing all the levels, it resets to level 1, but the monsters double i
 
 ## Issues
 
-* Monsters can overlap
+* Not mobile friendly
 * I eventually plan to connect this to a database to keep track of high scores.

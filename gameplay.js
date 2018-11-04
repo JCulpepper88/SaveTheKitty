@@ -50,21 +50,24 @@ function moveMonsters() {
       if (newx < gridMin || newx > gridMax || newy < gridMin || newy > gridMax)
         valid = false;
 	
-	  else {
-        const hole = isHole(newx, newy);
-        const wall = isWall(newx, newy);
-		
-		// monster cannot move into the weapon
-        if (newy == weaponPoint[0] && newx == weaponPoint[1])
-          valid = false;
+      else {
+          const hole = isHole(newx, newy);
+          const wall = isWall(newx, newy);
+      
+          // monster cannot move into the weapon
+          if (newy == weaponPoint[0] && newx == weaponPoint[1])
+            valid = false;
 
-        // monster cannot move into a hole or wall
-        else if (hole || wall)
-          valid = false;
+          // monster cannot move into a hole or wall
+          else if (hole || wall)
+            valid = false;
 
-       // monster cannot move into another monster
-       // not implemented
-	  }	
+          // monster cannot move into another monster
+          for (var j = 0; j < monsterPoints.length; j++) {
+            if (newx == monsterPoints[j][1] && newy == monsterPoints[j][0])
+                valid = false;
+          }
+      }	
     } while (!valid);
 
     document.getElementById(toCoord(monsterPoints[i][0], monsterPoints[i][1])).innerHTML = '';
