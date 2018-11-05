@@ -55,6 +55,7 @@ function loadLevel() {
     userArmed = false;
     document.getElementById('onload').style.display = 'none';
     document.getElementById('stats').style.visibility = 'visible';
+	document.getElementById('control-container').style.display = 'block';
     document.getElementById('controls').style.visibility = 'visible';
     document.getElementById('level').innerHTML = currentLevel;
     document.getElementById('saved').innerHTML = kittensSaved;

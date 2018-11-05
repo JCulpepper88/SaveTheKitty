@@ -69,13 +69,13 @@ UL {
     display: none;
   }
 
-  .control-container{
+  .control-container {
     position: absolute;
-    top: 0;
+    bottom: 0;
     left: 0;
     text-align: center;
     margin: auto;
-    display: block;
+    display: none;
     width: 100%;
   }
   
@@ -83,7 +83,7 @@ UL {
     display: inline;
     text-align: center;
     z-index: 1;
-    opacity: .1;
+    opacity: .2;
     visibility: hidden
   }
 
