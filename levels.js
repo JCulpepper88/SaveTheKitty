@@ -59,7 +59,7 @@ Constraints:
 
 Level Design:
   1-10: Bradley Harris
-  11-22: John Culpepper
+  11-27: John Culpepper
 */
 
 const level1 = 
