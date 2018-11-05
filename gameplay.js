@@ -273,6 +273,8 @@ function keyCheck(e) {
       onSpaceBar();
       break;
   }
+  
+  document.getElementById('controls').style.display = 'none';
 }
 
 

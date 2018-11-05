@@ -69,23 +69,29 @@ UL {
     display: none;
   }
 
+  .control-container{
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    margin: auto;
+    display: block;
+    width: 100%;
+  }
+  
   .controls {
     display: inline;
     text-align: center;
-  }
-
-  .controls TR {
-    height: 15vw;
-    width: 45vw;
-    margin: 0px;
-    padding: 0px;
+    z-index: 1;
+    opacity: .1;
+    visibility: hidden
   }
 
   .controls TD {
-    height: 15vw;
-    width: 15vw;
-    min-height: 15vw;
-    min-width: 15vw;
+    height: 25vw;
+    width: 25vw;
+    min-height: 25vw;
+    min-width: 25vw;
     margin: 0px;
     padding: 0px;
     text-align: center;

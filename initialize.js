@@ -55,6 +55,7 @@ function loadLevel() {
     userArmed = false;
     document.getElementById('onload').style.display = 'none';
     document.getElementById('stats').style.visibility = 'visible';
+    document.getElementById('controls').style.visibility = 'visible';
     document.getElementById('level').innerHTML = currentLevel;
     document.getElementById('saved').innerHTML = kittensSaved;
     document.getElementById('speed').innerHTML = 500/monsterSpeed;
@@ -78,7 +79,6 @@ function createTable(size) {
   else
     cellSize = (80/size).toString() + smallerUnit;
 
-  console.log(cellSize);
   var table = document.createElement('table');
   table.className = 'grid';
 	
