@@ -11,7 +11,7 @@
 
 <body>
 
-<h1>Save the Kitty</h1>
+<div class="title">Save the Kitty</div>
 
 <div id="onload" class="onload">
   <p>Your mission:</p>
@@ -24,21 +24,43 @@
   <img src="images/cat.png" style="width: 50px; height: 50px;">
   <p>Use the arrow keys to move, and watch out for holes!</p>
   <img src="images/hole.png" style="width: 50px; height: 50px;">
-  <p>Press Spacebar to begin.</p>
-  
+  <p>Press Spacebar/Circle to begin.</p>  
 </div>
 
 <div id="tableJS"></div>
 
-<div class="stats">
-  <div>
-    <p><b>Level <span id="level">0</span> (Speed <span id="speed">0</span>)</p>
-    <p>Kittens Saved: <span id="saved">0</span></b>
+<div class="center smallonly">
+  <br>
+  <table class="controls" id="controls">
+    <tr>
+      <td></td>
+      <td><img src="images/up.png" ontouchstart="event.preventDefault(); moveUser('up');"></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><img src="images/left.png" ontouchstart="event.preventDefault(); moveUser('left');"></td>
+      <td><img src="images/circle.png" ontouchstart="onSpaceBar();"></td>
+      <td><img src="images/right.png" ontouchstart="event.preventDefault(); moveUser('right');"></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><img src="images/down.png" ontouchstart="event.preventDefault(); moveUser('down');"></td>
+      <td></td>
+    </tr>
+  </table>
+</div>
+
+<div class="stats" id="stats">
+  <div style="width: 30%; text-align: left">
+    <p>Level <span id="level">0</span></p>
+    <p>Speed <span id="speed">0</span></p>
+    <p>Kittens Saved: <span id="saved">0</span></p>
   </div>
   <div class="spacer"></div>
   <div id="message" class="message"></div>
   <div class="spacer"></div>
-  <div>
+  <div style="width: 30%; text-align: right; display: flex">
+    <span class="spacer"></span>
     <ul id="lives"></ul>
   </div>
 </div>

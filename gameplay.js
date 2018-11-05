@@ -269,11 +269,17 @@ function keyCheck(e) {
       event.preventDefault();
       moveUser('down');
       break;
-    case 32:
-      event.preventDefault();
-      if (!gameActive)
-        loadLevel();
+    case 32: // Spacebar
+      onSpaceBar();
+      break;
   }
+}
+
+
+function onSpaceBar() {
+  event.preventDefault();
+  if (!gameActive)
+    loadLevel();
 }
 
 

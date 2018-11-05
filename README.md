@@ -17,7 +17,4 @@ The user begins with 3 lives. The user loses a life by walking into a hole, allo
 
 After completing all the levels, it resets to level 1, but the monsters double in speed, and the user gains a life.
 
-## Issues
-
-* Not mobile friendly
-* I eventually plan to connect this to a database to keep track of high scores.
+I eventually plan to connect this to a database to keep track of high scores.

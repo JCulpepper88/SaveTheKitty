@@ -54,6 +54,7 @@ function loadLevel() {
     userURL = unarmedUserURL;
     userArmed = false;
     document.getElementById('onload').style.display = 'none';
+    document.getElementById('stats').style.visibility = 'visible';
     document.getElementById('level').innerHTML = currentLevel;
     document.getElementById('saved').innerHTML = kittensSaved;
     document.getElementById('speed').innerHTML = 500/monsterSpeed;
@@ -66,6 +67,18 @@ function loadLevel() {
 
 
 function createTable(size) {
+  var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+  var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+  var smaller = w < h ? w : h;
+  var smallerUnit = smaller == w ? 'vw' : 'vh';
+  var cellSize = 0;
+
+  if (smaller > 450)
+    cellSize = 450/size + 'px';
+  else
+    cellSize = (80/size).toString() + smallerUnit;
+
+  console.log(cellSize);
   var table = document.createElement('table');
   table.className = 'grid';
 	
@@ -74,7 +87,8 @@ function createTable(size) {
     for (var j = 0; j <= size; j++) {
       var td = document.createElement('td');
       td.setAttribute('id', i + '-' + j);
-      td.setAttribute('style', 'height: ' + 450/size + '; width: ' + 450/size + ';');
+      td.setAttribute('style', 'height: ' + cellSize + 
+      '; width: ' + cellSize + ';');
       tr.appendChild(td);
     }
     table.appendChild(tr);
