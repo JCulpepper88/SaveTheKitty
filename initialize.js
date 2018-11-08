@@ -72,13 +72,12 @@ function createTable(size) {
   var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
   var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
   var smaller = w < h ? w : h;
-  var smallerUnit = smaller == w ? 'vw' : 'vh';
   var cellSize = 0;
 
   if (smaller > 450)
     cellSize = 450/size + 'px';
   else
-    cellSize = (80/size).toString() + smallerUnit;
+    cellSize = 80/size + 'vmin';
 
   var table = document.createElement('table');
   table.className = 'grid';
