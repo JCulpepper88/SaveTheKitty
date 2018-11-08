@@ -204,7 +204,9 @@ function userMonsterEncounter() {
         currentLevel = 1;
         monsterSpeed = monsterSpeed / 2;
         addLife();
-      }    
+      }
+	else if (currentLevel % 10 == 0)
+		addLife();
     }
   }
   

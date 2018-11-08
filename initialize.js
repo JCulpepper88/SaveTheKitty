@@ -37,7 +37,6 @@ var gameActive = false;
 function newGame() {
   addLife();
   addLife();
-  addLife();
   currentLevel = 1;
   kittensSaved = 0;
   monsterSpeed = 500;
