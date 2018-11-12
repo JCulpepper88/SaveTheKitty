@@ -33,50 +33,57 @@ function isAlive() {
 
 
 function moveMonsters() {
-  for (var i = 0; i < monsterPoints.length; i++) {
+	for (var i = 0; i < monsterPoints.length; i++) {
 
-    var newx;
-    var newy;
-
-    do {
-      var valid = true;
-      var change = randomMove();
-      const x = monsterPoints[i][1];
-      const y = monsterPoints[i][0];
-      newx = x + change[0];
-      newy = y + change[1];
-	  
-      // monster cannot move off the grid
-      if (newx < gridMin || newx > gridMax || newy < gridMin || newy > gridMax)
-        valid = false;
+		var newx;
+		var newy;
+		const x = monsterPoints[i][1];
+		const y = monsterPoints[i][0];
 	
-      else {
-          const hole = isHole(newx, newy);
-          const wall = isWall(newx, newy);
-      
-          // monster cannot move into the weapon
-          if (newy == weaponPoint[0] && newx == weaponPoint[1])
-            valid = false;
+		do {
+			var valid = true;
+			var change = randomMove();
+			newx = x + change[0];
+			newy = y + change[1];
+		  
+			// monster cannot move off the grid
+			if (newx < gridMin || newx > gridMax || newy < gridMin || newy > gridMax)
+				valid = false;
+		
+			else {
+				const hole = isHole(newx, newy);
+				const wall = isWall(newx, newy);
+		  
+				// monster cannot move into the weapon
+				if (newy == weaponPoint[0] && newx == weaponPoint[1])
+					valid = false;
 
-          // monster cannot move into a hole or wall
-          else if (hole || wall)
-            valid = false;
+				// monster cannot move into a hole or wall
+				else if (hole || wall)
+					valid = false;
 
-          // monster cannot move into another monster
-          for (var j = 0; j < monsterPoints.length; j++) {
-            if (newx == monsterPoints[j][1] && newy == monsterPoints[j][0])
-                valid = false;
-          }
-      }	
-    } while (!valid);
+				else {
+					// monster cannot move into another monster
+					for (var j = 0; j < monsterPoints.length; j++) {
+						if (newx == monsterPoints[j][1] && newy == monsterPoints[j][0])
+							valid = false;
+					}
+					if (!valid && monsterPoints.length > 1) {
+						newx = x;
+						newy = y;
+						valid = true;
+					}
+				}
+			}
+		} while (!valid)
+			
+		document.getElementById(toCoord(monsterPoints[i][0], monsterPoints[i][1])).innerHTML = '';
+		document.getElementById(toCoord(newy,newx)).innerHTML = '<img src=\"' + monsterURL + '\">';
+		monsterPoints[i][1] = newx;
+		monsterPoints[i][0] = newy;
+	}
 
-    document.getElementById(toCoord(monsterPoints[i][0], monsterPoints[i][1])).innerHTML = '';
-    document.getElementById(toCoord(newy,newx)).innerHTML = '<img src=\"' + monsterURL + '\">';
-    monsterPoints[i][1] = newx;
-    monsterPoints[i][0] = newy;
-  }
-
-  comparePoints();
+	comparePoints();
 }
 
 
