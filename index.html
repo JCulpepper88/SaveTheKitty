@@ -33,24 +33,19 @@
   <br>
   <table class="controls" id="controls">
     <tr>
-      <td></td>
-      <td><img src="images/circle.png" ontouchstart="onSpaceBar();"></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td></td>
+      <td ontouchstart="event.preventDefault();"></td>
       <td><img src="images/up.png" ontouchstart="event.preventDefault(); moveUser('up');"></td>
-      <td></td>
+      <td ontouchstart="event.preventDefault();"></td>
     </tr>
     <tr>
       <td><img src="images/left.png" ontouchstart="event.preventDefault(); moveUser('left');"></td>
-      <td></td>
+      <td ontouchstart="event.preventDefault();"></td>
       <td><img src="images/right.png" ontouchstart="event.preventDefault(); moveUser('right');"></td>
     </tr>
     <tr>
-      <td></td>
+      <td ontouchstart="event.preventDefault();"></td>
       <td><img src="images/down.png" ontouchstart="event.preventDefault(); moveUser('down');"></td>
-      <td></td>
+      <td><img src="images/circle.png" ontouchstart="onSpaceBar();"></td></td>
     </tr>
   </table>
 </div>
