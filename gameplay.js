@@ -133,10 +133,8 @@ function comparePoints() {
   const fellIntoTheAbyss = isHole(userPoint[1], userPoint[0]);  
   if (fellIntoTheAbyss) {
     loseLife();
-    endLevel('You fell into the abyss!');
-    if (isAlive)
-      restartLevelAlert();
     document.getElementById(toCoord(userPoint[0], userPoint[1])).innerHTML = '<img src=\"' + abyssURL + '\">';
+    endLevel('You fell into the abyss!');
   }
   
 // Monsters + Kitty
@@ -145,19 +143,17 @@ function comparePoints() {
 
     if (kittyPoint[0] == monsterPoints[i][0] && kittyPoint[1] == monsterPoints[i][1]) {
       loseLife();
-      endLevel('The monster killed the kitty!');
-      if (isAlive)
-        restartLevelAlert();
       document.getElementById(toCoord(monsterPoints[i][0], monsterPoints[i][1])).innerHTML = '<img src=\"' + catDiesURL + '\">';
+      endLevel('The monster killed the kitty!');
+      
     }
   }
 
 // Monsters + User
 
   for (var i = 0; i < monsterPoints.length; i++) {
-
-  if (userPoint[0] == monsterPoints[i][0] && userPoint[1] == monsterPoints[i][1])
-    userMonsterEncounter();
+    if (userPoint[0] == monsterPoints[i][0] && userPoint[1] == monsterPoints[i][1])
+        userMonsterEncounter();
   }
 
 // User + Weapon
@@ -201,7 +197,7 @@ function userMonsterEncounter() {
   
     // if there are no more monsters
     else { 
-      endLevel('You killed all the monsters!');
+      endLevel('You killed all the monsters!', true);
       victoryAlert();
       document.getElementById(toCoord(kittyPoint[0], kittyPoint[1])).innerHTML = '<img src=\"' + catLivesURL + '\">';
       kittensSaved++;
@@ -212,19 +208,16 @@ function userMonsterEncounter() {
         monsterSpeed = monsterSpeed / 2;
         addLife();
       }
-	else if (currentLevel % 10 == 0)
+      else if (currentLevel % 10 == 0)
 		addLife();
-    }
+      }
   }
   
   // if user has no weapon
   else { 
     loseLife();
-    endLevel('The monster killed you!');
-    if (isAlive)
-      restartLevelAlert();
     document.getElementById(userCoord).innerHTML = '<img src=\"' + userDiesURL + '\">';
-    gameActive = false;
+    endLevel('The monster killed you!');
   }
 }
 
@@ -248,12 +241,15 @@ function loseLife() {
 }
 
 
-function endLevel(message) {
+function endLevel(message, victory = false) {
   clearInterval(autoMove);
   alert(message);
   gameActive = false;
-  if (!isAlive)
+  if (userLives == 0) {
     gameOverAlert();
+  }
+  else if (!victory)
+    restartLevelAlert();
 }
 
 
