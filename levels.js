@@ -58,7 +58,7 @@ Constraints:
  - Level should have one user, one kitty, one weapon, and at least one monster
 
 Level Design:
-  1-10: Bradley Harris
+  1-10, 43: Bradley Harris
   11-42: John Culpepper
 */
 
@@ -785,7 +785,7 @@ const level42 =
 '---------------------',
 ]
 
-const pyramid =
+const level43 =
 [
  '--------------=--------------',
  '----------*--=-=--*----------',
@@ -818,10 +818,10 @@ const pyramid =
  '=============================',
 ];
 
-const levels = [
+const levels = [ level20,
 level1, level2, level3, level4, level15, level40, level29, level36, level35, level42,
 level17, level5, level6, level18, level16, level30, level34, level37, level41,
 level7, level19, level27, level8, level21, level22, level33, level38,
 level23, level11, level28, level12, level13, level9, level32, level39,
-level25, level10, level24, level26, level14, level20, level31
+level25, level10, level24, level26, level14, level20, level43, level31
 ];
