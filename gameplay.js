@@ -247,6 +247,8 @@ function endLevel(message, victory = false) {
   gameActive = false;
   if (userLives == 0) {
     gameOverAlert();
+    // const name = prompt('Game over! You saved ' + kittensSaved + ' kittens. Enter your name to save your score.', '');
+    // window.location.href = 'scores.html';
   }
   else if (!victory)
     restartLevelAlert();
