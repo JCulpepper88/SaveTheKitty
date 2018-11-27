@@ -818,7 +818,7 @@ const level43 =
  '=============================',
 ];
 
-const levels = [ level20,
+const levels = [
 level1, level2, level3, level4, level15, level40, level29, level36, level35, level42,
 level17, level5, level6, level18, level16, level30, level34, level37, level41,
 level7, level19, level27, level8, level21, level22, level33, level38,
